@@ -17,7 +17,8 @@ Este proyecto fue creado como **material de apoyo para una presentación a estud
 
 ## Stack
 
-- [Astro 4](https://astro.build) — generador de sitios estáticos basado en componentes
+- [Astro 6](https://astro.build) — generador de sitios estáticos basado en componentes
+- [Cloudflare Workers](https://workers.cloudflare.com/) como target de deploy (via `@astrojs/cloudflare`)
 - HTML / CSS / JavaScript vanilla
 - Tres fuentes de Google Fonts: Libre Caslon Text (serif display), DM Sans (sans body), JetBrains Mono (meta/labels)
 
@@ -100,6 +101,46 @@ pnpm preview
 ```
 
 Sirve la carpeta `dist/` localmente para verificar cómo se ve el build final.
+
+---
+
+## Deploy a Cloudflare Workers
+
+El proyecto ya está configurado con el adapter [`@astrojs/cloudflare`](https://docs.astro.build/en/guides/integrations-guide/cloudflare/) y un `wrangler.toml`, así que se puede publicar directo a Cloudflare Workers.
+
+### Requisitos
+
+- Cuenta gratuita en [Cloudflare](https://dash.cloudflare.com/sign-up)
+- [Wrangler CLI](https://developers.cloudflare.com/workers/wrangler/) (se instala on-the-fly con `pnpx`)
+
+### Pasos
+
+**1. Autenticarse con Cloudflare**
+
+```bash
+pnpx wrangler login
+```
+
+Esto abre el navegador para que conectes tu cuenta. Solo se hace una vez.
+
+**2. Probar el Worker en local**
+
+```bash
+pnpm cf:preview
+```
+
+Hace el build de Astro y lo sirve usando el runtime real de Workers en `http://localhost:8787`.
+
+**3. Deployar a producción**
+
+```bash
+pnpm deploy
+```
+
+En menos de un minuto el sitio queda público en una URL del estilo:
+`https://astro-portfolio-demo.<tu-subdominio>.workers.dev`
+
+Para conectar un dominio propio se hace desde el dashboard de Cloudflare → Workers → tu worker → Custom Domains.
 
 ---
 
