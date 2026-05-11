@@ -7,9 +7,12 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "deploy": "astro build && wrangler deploy",
+    "cf:preview": "astro build && wrangler dev"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^13.5.0",
     "astro": "^6.3.1"
   }
 }
