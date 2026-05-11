@@ -1,0 +1,124 @@
+---
+import Sigil from './Sigil.astro';
+const elsewhere = [
+  'GitHub  ↗  github.com/arestrepo',
+  'LinkedIn  ↗  in/arestrepo',
+  'Bluesky  ↗  @arestrepo.dev',
+  'Read.cv  ↗  /arestrepo',
+];
+---
+<section id="contact" class="contact">
+  <div class="contact-sigil">
+    <Sigil size={500} />
+  </div>
+  <div class="container contact-inner">
+    <div class="contact-head">
+      <div class="mono contact-kicker">
+        <span class="sect-num">§06</span>
+        <span class="sect-rule"></span>
+        Get in touch
+      </div>
+      <h2 class="serif contact-h2">
+        Let's build something<br/>
+        <em>worth keeping.</em>
+      </h2>
+    </div>
+
+    <div class="contact-grid">
+      <div>
+        <div style="margin-bottom: 36px;">
+          <div class="mono contact-label">Direct email</div>
+          <button id="email-btn" class="email-btn">
+            hello@arestrepo.dev
+            <span id="email-badge" class="email-badge">Copy</span>
+          </button>
+        </div>
+
+        <div style="margin-bottom: 36px;">
+          <div class="mono contact-label">Elsewhere</div>
+          <div class="elsewhere">
+            {elsewhere.map(l => <a href="#">{l}</a>)}
+          </div>
+        </div>
+
+        <div class="status-card">
+          <div class="status-head">
+            <span class="status-dot"></span>
+            <span class="status-text">Status — Open for Q2 2026</span>
+          </div>
+          <p class="status-body">
+            Taking on 1–2 contracts starting May. Typical engagement: 8–12 weeks, backend
+            or platform work.
+          </p>
+        </div>
+      </div>
+
+      <form id="contact-form" class="contact-form">
+        <div class="form-row">
+          <label class="field" data-field>
+            <span class="mono field-label">Name</span>
+            <input type="text" name="name" />
+          </label>
+          <label class="field" data-field>
+            <span class="mono field-label">Email</span>
+            <input type="email" name="email" />
+          </label>
+        </div>
+        <label class="field" data-field>
+          <span class="mono field-label">Subject</span>
+          <input type="text" name="subject" />
+        </label>
+        <label class="field" data-field>
+          <span class="mono field-label">Message</span>
+          <textarea name="message" rows="5"></textarea>
+        </label>
+        <button type="submit" id="send-btn" class="send-btn">Send message →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Copy email
+  const emailBtn = document.getElementById('email-btn');
+  const badge = document.getElementById('email-badge');
+  emailBtn?.addEventListener('click', () => {
+    navigator.clipboard.writeText('hello@arestrepo.dev');
+    if (badge) {
+      badge.textContent = 'Copied';
+      badge.classList.add('copied');
+      setTimeout(() => {
+        badge.textContent = 'Copy';
+        badge.classList.remove('copied');
+      }, 1800);
+    }
+  });
+
+  // Floating labels
+  document.querySelectorAll<HTMLElement>('[data-field]').forEach(field => {
+    const input = field.querySelector<HTMLInputElement | HTMLTextAreaElement>('input, textarea');
+    if (!input) return;
+    const update = () => {
+      if (input.value) field.classList.add('filled');
+      else field.classList.remove('filled');
+    };
+    input.addEventListener('input', update);
+    input.addEventListener('blur', update);
+  });
+
+  // Submit feedback
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const sendBtn = document.getElementById('send-btn');
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!sendBtn) return;
+    sendBtn.textContent = 'Message sent ✓';
+    sendBtn.classList.add('sent');
+    setTimeout(() => {
+      sendBtn.textContent = 'Send message →';
+      sendBtn.classList.remove('sent');
+      form.reset();
+      document.querySelectorAll('[data-field]').forEach(f => f.classList.remove('filled'));
+    }, 2400);
+  });
+</script>

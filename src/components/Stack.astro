@@ -1,0 +1,84 @@
+---
+import SectionTitle from './SectionTitle.astro';
+
+const STACK_DATA: Record<string, { name: string; level: number }[]> = {
+  Languages: [
+    { name: 'TypeScript', level: 95 },
+    { name: 'Rust', level: 78 },
+    { name: 'Go', level: 82 },
+    { name: 'Python', level: 88 },
+    { name: 'SQL / Postgres', level: 92 },
+  ],
+  Infrastructure: [
+    { name: 'Kubernetes', level: 84 },
+    { name: 'Terraform', level: 80 },
+    { name: 'AWS / GCP', level: 86 },
+    { name: 'Observability (OTel, Grafana)', level: 88 },
+  ],
+  Frontend: [
+    { name: 'React / Next.js', level: 90 },
+    { name: 'CSS architecture', level: 84 },
+    { name: 'Accessibility', level: 76 },
+    { name: 'Design systems', level: 80 },
+  ],
+  Practices: [
+    { name: 'Code review & mentoring', level: 92 },
+    { name: 'Technical writing', level: 86 },
+    { name: 'Incident response', level: 84 },
+    { name: 'Architecture design', level: 88 },
+  ],
+};
+const tabs = Object.keys(STACK_DATA);
+---
+<section id="stack" class="stack-section">
+  <div class="container">
+    <SectionTitle
+      index="03"
+      kicker="Toolkit"
+      title="What I reach for, and how often."
+      subtitle="The list under each category is ordered roughly by recent depth, not enthusiasm."
+    />
+    <div class="stack-grid">
+      <div class="stack-tabs" id="stack-tabs">
+        {tabs.map((k, i) => (
+          <button class={`stack-tab${i === 0 ? ' active' : ''}`} data-tab={k}>
+            {k}
+            <span class="count">{STACK_DATA[k].length}</span>
+          </button>
+        ))}
+      </div>
+      <div id="stack-panels">
+        {tabs.map((k, ti) => (
+          <div class={`stack-panel${ti === 0 ? ' active' : ''}`} data-panel={k}>
+            {STACK_DATA[k].map((item, i) => (
+              <div class="stack-row">
+                <span class="stack-num">{String(i + 1).padStart(2, '0')}</span>
+                <span class="serif stack-name">{item.name}</span>
+                <div class="stack-bar">
+                  <div class={`stack-bar-fill ${i % 2 === 0 ? 'olive' : 'garnet'}`} style={`width: ${item.level}%`}></div>
+                </div>
+                <span class="stack-pct">{item.level}%</span>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const tabs = document.querySelectorAll<HTMLButtonElement>('#stack-tabs .stack-tab');
+  const panels = document.querySelectorAll<HTMLElement>('#stack-panels .stack-panel');
+  tabs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabs.forEach(b => b.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      const key = btn.dataset.tab;
+      panels.forEach(p => {
+        if (p.dataset.panel === key) p.classList.add('active');
+      });
+    });
+  });
+</script>

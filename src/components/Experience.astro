@@ -1,0 +1,38 @@
+---
+import SectionTitle from './SectionTitle.astro';
+
+const EXPERIENCE = [
+  { range: '2024 — Now', role: 'Senior Backend Engineer', org: '[Company Placeholder]', loc: 'Remote · Bogotá',
+    notes: 'Leading platform infrastructure. Migrated services to a new runtime; halved p99 latency.' },
+  { range: '2022 — 2024', role: 'Software Engineer', org: '[Company Placeholder]', loc: 'Medellín',
+    notes: "Built developer tooling that became the team's default integration surface." },
+  { range: '2020 — 2022', role: 'Full-Stack Engineer', org: '[Studio Placeholder]', loc: 'Bogotá',
+    notes: 'Shipped editorial products for media and civic-tech clients across the region.' },
+  { range: '2018 — 2020', role: 'B.Eng., Systems Engineering', org: 'Universidad Central', loc: 'Bogotá',
+    notes: 'Thesis on distributed consensus. Teaching assistant for Operating Systems.' },
+];
+---
+<section class="experience">
+  <div class="container">
+    <SectionTitle index="04" kicker="Trajectory" title="Where I've been." />
+    <div class="timeline">
+      <div class="timeline-line"></div>
+      {EXPERIENCE.map((e, i) => (
+        <div class="exp-row">
+          <div class="exp-range">
+            {e.range}
+            <span class={`timeline-dot ${i === 0 ? 'garnet' : 'olive'}`}></span>
+          </div>
+          <div>
+            <div class="exp-head">
+              <h3 class="serif exp-role">{e.role}</h3>
+              <span class="exp-org">— {e.org}</span>
+            </div>
+            <div class="exp-loc">{e.loc}</div>
+            <p class="exp-notes">{e.notes}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

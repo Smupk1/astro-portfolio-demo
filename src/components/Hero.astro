@@ -1,0 +1,71 @@
+---
+import Sigil from './Sigil.astro';
+const facts = [
+  ['Currently', 'Backend Engineer, [Company]'],
+  ['Based in', 'Bogotá → remote worldwide'],
+  ['Studied', 'Universidad Central, B.Eng.'],
+  ['Open to', 'Contract & advisory work'],
+];
+---
+<section id="top" class="hero">
+  <div class="container">
+    <div class="mono hero-meta">
+      <span>Bogotá, Colombia · 04°35′N</span>
+      <span>—</span>
+      <span>Portfolio · MMXXVI</span>
+      <span>—</span>
+      <span>Local time <span id="bog-time">--:--:--</span> GMT-5</span>
+    </div>
+
+    <p class="mono hero-kicker">
+      <span class="berry"></span> Software Engineer &amp; Systems Designer
+    </p>
+
+    <h1 class="serif hero-h1">
+      Building deliberate,<br/>
+      <em>durable</em> software<br/>
+      for the long view.
+    </h1>
+
+    <div class="hero-grid">
+      <p class="hero-lead">
+        I'm a full-stack engineer working across distributed systems, web platforms,
+        and developer tooling. Currently focused on backend infrastructure and the
+        interfaces that sit on top of it. Available for select contracts in 2026.
+      </p>
+      <div class="hero-facts">
+        {facts.map(([k, v]) => (
+          <div class="hero-fact">
+            <span class="hero-fact-k">{k}</span>
+            <span class="hero-fact-v">{v}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="hero-cta">
+      <a href="#work" class="btn-primary">
+        View selected work
+        <span>↓</span>
+      </a>
+      <a href="#contact" class="btn-ghost">Schedule a call</a>
+    </div>
+  </div>
+
+  <div class="hero-sigil">
+    <Sigil size={420} />
+  </div>
+</section>
+
+<script>
+  const el = document.getElementById('bog-time');
+  const tick = () => {
+    const d = new Date();
+    const opts: Intl.DateTimeFormatOptions = {
+      timeZone: 'America/Bogota', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
+    };
+    if (el) el.textContent = d.toLocaleTimeString('en-US', opts);
+  };
+  tick();
+  setInterval(tick, 1000);
+</script>

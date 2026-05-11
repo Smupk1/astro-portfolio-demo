@@ -1,0 +1,31 @@
+---
+import SectionTitle from './SectionTitle.astro';
+
+const POSTS = [
+  { date: 'Apr 2026', title: 'On the cost of clever abstractions', read: '8 min', tag: 'Essay' },
+  { date: 'Feb 2026', title: 'Postgres logical replication: a field guide', read: '14 min', tag: 'Technical' },
+  { date: 'Dec 2025', title: 'What I learned running a backend meetup for two years', read: '6 min', tag: 'Reflection' },
+  { date: 'Oct 2025', title: 'Type-driven API design in TypeScript and Rust', read: '11 min', tag: 'Technical' },
+];
+---
+<section id="writing" class="writing">
+  <div class="container">
+    <SectionTitle
+      index="05"
+      kicker="Writing"
+      title="Notes from the workshop."
+      subtitle="Occasional essays on systems, craft, and the practice of building."
+    />
+    <div class="posts">
+      {POSTS.map(p => (
+        <a href="#" class="post-row">
+          <span class="post-date">{p.date}</span>
+          <span class="serif post-title">{p.title}</span>
+          <span class="post-tag">{p.tag}</span>
+          <span class="post-read">{p.read}</span>
+          <span class="post-arrow">→</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

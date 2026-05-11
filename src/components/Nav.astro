@@ -1,0 +1,45 @@
+---
+import Monogram from './Monogram.astro';
+const links = [
+  ['Work', '#work'],
+  ['About', '#about'],
+  ['Stack', '#stack'],
+  ['Writing', '#writing'],
+  ['Contact', '#contact'],
+];
+---
+<header class="nav" id="nav">
+  <div class="container nav-inner">
+    <a href="#top" class="nav-brand">
+      <Monogram />
+      <div class="nav-brand-text">
+        <span class="nav-brand-name">A. Restrepo</span>
+        <span class="nav-brand-role">Software Engineer</span>
+      </div>
+    </a>
+    <nav class="nav-links">
+      {links.map(([label, href], i) => (
+        <a href={href} class="nav-link">
+          <span class="num">0{i + 1}</span>{label}
+        </a>
+      ))}
+      <a href="#contact" class="nav-cta">
+        Get in touch
+        <span class="arrow">→</span>
+      </a>
+    </nav>
+    <button class="mobile-toggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<script>
+  const nav = document.getElementById('nav');
+  const onScroll = () => {
+    if (window.scrollY > 30) nav?.classList.add('scrolled');
+    else nav?.classList.remove('scrolled');
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>

@@ -1,0 +1,98 @@
+---
+import SectionTitle from './SectionTitle.astro';
+
+const PROJECTS = [
+  {
+    id: 1, year: '2026', tag: 'Infrastructure',
+    title: 'Distributed scheduler for batch ML workloads',
+    blurb: 'A coordinator service handling 12k concurrent jobs across a heterogeneous GPU pool. Reduced job-start latency from 14s to 380ms.',
+    stack: ['Rust', 'Postgres', 'gRPC', 'Kubernetes'],
+    metric: ['—36×', 'faster job-start'],
+    accent: 'olive',
+  },
+  {
+    id: 2, year: '2025', tag: 'Developer Tools',
+    title: 'A type-safe client generator for internal APIs',
+    blurb: 'OpenAPI to fully-typed clients with runtime validation. Adopted across 9 product teams as the default integration path.',
+    stack: ['TypeScript', 'AST tooling', 'CI/CD'],
+    metric: ['9', 'product teams'],
+    accent: 'garnet',
+  },
+  {
+    id: 3, year: '2025', tag: 'Platform',
+    title: 'Multi-tenant observability pipeline',
+    blurb: 'Replaced a vendor solution with a self-hosted stack. Cut monthly spend by 78% while doubling ingestion headroom.',
+    stack: ['Go', 'ClickHouse', 'OpenTelemetry'],
+    metric: ['78%', 'cost reduction'],
+    accent: 'olive',
+  },
+  {
+    id: 4, year: '2024', tag: 'Web',
+    title: 'Editorial CMS for a Latin American magazine',
+    blurb: 'Collaborative writing surface with real-time presence and a custom block-based editor. Three-language publishing pipeline.',
+    stack: ['Next.js', 'CRDTs', 'Postgres'],
+    metric: ['3', 'languages live'],
+    accent: 'garnet',
+  },
+];
+
+const tags = ['All', ...Array.from(new Set(PROJECTS.map(p => p.tag)))];
+---
+<section id="work" class="work">
+  <div class="container">
+    <SectionTitle
+      index="01"
+      kicker="Selected work"
+      title="Four projects from the last two years."
+      subtitle="A small sample. References and longer case studies available on request."
+    />
+
+    <div class="work-filters" id="work-filters">
+      {tags.map((t, i) => (
+        <button class={`filter-btn${i === 0 ? ' active' : ''}`} data-filter={t}>{t}</button>
+      ))}
+    </div>
+
+    <div class="work-list" id="work-list">
+      {PROJECTS.map(p => (
+        <div class="project-row" data-tag={p.tag}>
+          <div class="project-year">{p.year}</div>
+          <div>
+            <span class={`project-tag ${p.accent}`}>
+              <span class="dot"></span>
+              {p.tag}
+            </span>
+            <h3 class="serif project-title">{p.title}</h3>
+            <p class="project-blurb">{p.blurb}</p>
+            <div class="project-stack">
+              {p.stack.map(s => <span class="project-stack-item">{s}</span>)}
+            </div>
+          </div>
+          <div class="project-metric-wrap">
+            <div class={`project-metric accent-${p.accent}`}>{p.metric[0]}</div>
+            <div class="project-metric-label">{p.metric[1]}</div>
+          </div>
+          <div class="project-arrow-wrap">
+            <span class="project-arrow">→</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  const filters = document.querySelectorAll<HTMLButtonElement>('#work-filters .filter-btn');
+  const rows = document.querySelectorAll<HTMLElement>('#work-list .project-row');
+  filters.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filters.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      rows.forEach(r => {
+        const show = filter === 'All' || r.dataset.tag === filter;
+        r.classList.toggle('hidden', !show);
+      });
+    });
+  });
+</script>

@@ -1,0 +1,18 @@
+---
+const items = [
+  'Distributed systems', 'Type-driven design', 'Observability',
+  'Developer experience', 'Postgres internals', 'API ergonomics',
+  'Event sourcing', 'Performance budgets', 'Edge runtimes',
+];
+const tripled = [...items, ...items, ...items];
+---
+<div class="marquee">
+  <div class="marquee-track">
+    {tripled.map(it => (
+      <span class="serif marquee-item">
+        {it}
+        <span class="marquee-dot"></span>
+      </span>
+    ))}
+  </div>
+</div>

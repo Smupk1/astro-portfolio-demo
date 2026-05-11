@@ -1,0 +1,60 @@
+---
+import SectionTitle from './SectionTitle.astro';
+const facts = [
+  ['Years building', '8+'],
+  ['Production deploys', '3,400+'],
+  ['Languages spoken', 'ES · EN · PT'],
+  ['Coffee preference', 'Filter, Huila'],
+  ['Tabs or spaces', 'Two spaces'],
+  ['Editor', 'Neovim → VS Code'],
+];
+---
+<section id="about" class="about">
+  <div class="container">
+    <SectionTitle
+      index="02"
+      kicker="About"
+      title="An engineer with a craftsman's temperament."
+    />
+    <div class="about-grid">
+      <div>
+        <div class="portrait">
+          <div class="portrait-tag">[ portrait — drop image ]</div>
+        </div>
+        <div class="reading-card">
+          <div class="reading-label">Currently reading</div>
+          <p class="reading-title">"The Pragmatic Programmer", 20th Anniversary Ed.</p>
+          <p class="reading-author">— Hunt &amp; Thomas</p>
+        </div>
+      </div>
+      <div>
+        <div class="serif pull-quote-mark">"</div>
+        <p class="pull-quote">
+          The systems I care about are the ones that survive the boring Tuesday at 4pm
+          when someone needs to debug them.
+        </p>
+        <div class="about-facts">
+          {facts.map(([k, v]) => (
+            <div class="about-fact">
+              <div class="about-fact-k">{k}</div>
+              <div class="about-fact-v">{v}</div>
+            </div>
+          ))}
+        </div>
+        <div class="about-body">
+          <p>
+            I spent the first half of my career building consumer products and the second
+            half building the infrastructure underneath them. The pattern I keep returning
+            to: pay attention to the seams, name things precisely, and don't be clever
+            where you can be clear.
+          </p>
+          <p>
+            Outside of work I write short essays on systems thinking, run a weekly local
+            meetup for backend engineers in Bogotá, and am slowly learning to bind books
+            by hand.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
