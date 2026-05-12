@@ -8,8 +8,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "deploy": "astro build && wrangler deploy",
-    "cf:preview": "astro build && wrangler dev"
+    "deploy": "astro build && wrangler deploy --config wrangler.deploy.toml",
+    "cf:preview": "astro build && wrangler dev --config wrangler.deploy.toml"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^13.5.0",
